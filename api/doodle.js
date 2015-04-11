@@ -20,7 +20,7 @@ io.on('connection',function(socket){
 	socket.on('sendMessage',function(mensagem){
         console.info('recebeu sendMessagem:' + mensagem.msg);
 		socket.emit('newMessage',mensagem);
-        db.gravaMsg(mensagem.room, mensagem.msg, mensagem.user, function(){
+        db.gravaMsg(mensagem, function(){
             console.log("inseriu msg no banco!");
         })
 		if(mensagem.msg.indexOf('#') != -1){
