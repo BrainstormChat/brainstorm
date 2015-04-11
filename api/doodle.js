@@ -8,7 +8,7 @@ server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
 
-io.on('connetion',function(socket){
+io.on('connection',function(socket){
 	console.info('conectado');
 	socket.on('sendMessage',function(mensagem){
 		console.info('recebeu sendMessage');
