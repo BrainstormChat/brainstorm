@@ -31,8 +31,6 @@
         <script src="js/socket.io.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/starting.js"></script>
-
-        <script src="js/controller_input_message.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -85,10 +83,10 @@
                             </ul>
                         </div>
                         <div class="panel-footer" >
-                            <div class="input-group" ng-controller="input_message">
-                                <input id="btn-input" type="text" ng-model="message" class="form-control input-sm"  placeholder="Type your message here...">
+                            <div class="input-group">
+                                <input id="input-message" type="text" class="form-control input-sm"  placeholder="Type your message here...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="send()">Send</button>
+                                    <button class="btn btn-warning btn-sm" id="btn-send">Send</button>
                                 </span>
                             </div>
                         </div>
@@ -157,5 +155,6 @@
       </div>
     </div>
     <script src="js/controller_messages.js"></script>
+    <script src="js/controller_input_message.js"></script>
     </body>
 </html>

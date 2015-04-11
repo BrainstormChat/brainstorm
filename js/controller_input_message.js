@@ -1,16 +1,16 @@
-    window.app.controller('input_message', function inputMessage ($scope) {
-      $scope.send = function(){
+$('#btn-send').on('click', function(){
+  window.socket.emit('sendMessage',{
+      "room" : "dsv",
+      "user" : localStorage.getItem('username'),
+      "msg" : $('#input-message').val(),
+      "time" : new Date().getTime()
+  });
 
-        if ($scope.message) {
+  $('#input-message').val('');
+});
 
-            socket.emit('sendMessage',{
-                "room" : "dsv",
-                "user" : localStorage.getItem('username'),
-                "msg" : $scope.message,
-                "time" : new Date().getTime()
-            });
-
-        }
-
-    }
+$('#input-message').keypress(function(e) {
+   if(e.which == 13) {
+     $('#btn-send').click();
+  }
 });
