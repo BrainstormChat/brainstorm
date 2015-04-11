@@ -1,5 +1,5 @@
 (function(){
-    var db = require('database');
+    var db = require('./database');
 
 	var io = require('socket.io')(8080);
 
