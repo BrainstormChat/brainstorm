@@ -37,6 +37,11 @@ io.on('connection',function(socket){
 		}
 	});
     socket.on('identuser', function(mensagem){
-        db.gravaUsr(userid, useremail);
+        db.gravaUsr(mensagem.user, mensagem.email);
+        io.emit('newMessage', "{0} Entrou na sala!".format(mensagem.user));
+    });
+    socket.on('disconnect', function(){
+        io.emit("Alguém saiu da sala...");
     });
 });
+
