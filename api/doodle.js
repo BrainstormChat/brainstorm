@@ -4,7 +4,9 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 var port = process.env.PORT || 8888;
-var db = require("./chatdatabase")
+var dbr = require("./chatdatabase")
+
+var db = new dbr()
 
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
