@@ -10,4 +10,4 @@ function Database(){
     }
 
 };
-module.export Database;
+module.exports = Database;
