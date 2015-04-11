@@ -23,9 +23,11 @@ io.on('connection',function(socket){
 	socket.on('sendMessage',function(mensagem){
 	  console.info('recebeu sendMessagem:' + mensagem.msg);
 		io.emit('newMessage',mensagem);
-	  db.gravaMsg(mensagem.room, mensagem.msg, mensagem.user, function(){
-	      console.log("inseriu msg no banco!")
-	  });
+        try{
+            db.gravaMsg(mensagem.room, mensagem.msg, mensagem.user, function(){
+              console.log("inseriu msg no banco!")
+            });
+        } catch {}
 		if(mensagem.msg.indexOf('#') != -1){
 			io.emit('newCitation',helper.formatCitation(mensagem,"#"));
 		}
