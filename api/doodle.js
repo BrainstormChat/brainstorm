@@ -9,7 +9,7 @@ server.listen(port, function () {
 });
 
 var helper = {};
-helper.formatCitation(_msg,_signal){
+helper.formatCitation = function(_msg,_signal){
 	_msg.type = _signal;
 	return _msg;
 }
