@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="brainstorm">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,6 +26,12 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/socket.io.js"></script>
+        <script src="js/angular.min.js"></script>
+        <script src="js/controller_input_message.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -115,7 +121,7 @@
                                     </div>
                                 </li>
                                 <li class="left clearfix"><span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/aabbcc/fff&amp;text=ME" alt="User Avatar" class="img-circle">  
+                                    <img src="http://placehold.it/50/aabbcc/fff&amp;text=ME" alt="User Avatar" class="img-circle">
                                 </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
@@ -158,12 +164,11 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="panel-footer">
-                            <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
+                        <div class="panel-footer" >
+                            <div class="input-group" ng-controller="input_message">
+                                <input id="btn-input" type="text" ng-model="message" class="form-control input-sm"  placeholder="Type your message here...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat">
-                                        Send</button>
+                                    <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="send()">Send</button>
                                 </span>
                             </div>
                         </div>
@@ -213,8 +218,6 @@
                 </div>
         </div>
     </div>
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+
   </body>
 </html>
