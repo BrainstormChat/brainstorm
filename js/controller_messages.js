@@ -20,16 +20,26 @@ window.app.controller('messages', function messages ($scope) {
 
     window.socket.on('newMessage', function(data){
 
+        console.log('#####');
         console.log(data);
+        console.log('#####');
 
-        var message = {};
+        var received = {};
 
-        message['user'] = data.user;
-        message['message'] = data.msg;
-        message['time'] = 'now';
-        message['user_initials'] = 'KK';
+        received['user'] = data.user;
+        received['message'] = data.msg;
 
-        $scope.messages.push(message);
+        var time = new Date(data.time);
+        received['time'] = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+
+        var name = data.user.split(' '),
+            initials = '';
+        for (var i=0; i<name.length; ++i) {
+          initials += name[i].substring(0,1);
+        }
+        received['user_initials'] = initials;
+
+        $scope.messages.push(received);
     });
 
 
