@@ -1,7 +1,7 @@
 function Database(){
 
     var databaseuri = "mongodb://db:db@ds041160.mongolab.com:41160/brainstormchat"
-    var collections = ["teams", "tokens", "users", "chatsession"]
+    var collections = ["citations", "tokens", "users", "chatsession"]
     var db = require('mongojs').connect(databaseuri, collections)
 
 
@@ -15,6 +15,15 @@ function Database(){
             }
         })
     }
+
+    var gravaCitation = function(owner, sessionid, type, citation, callback){
+        db.citations.save({
+            "owner": owner,
+            "sessionid": sessionid,
+            "type":type,
+            "citation":citation
+        });
+    };
 
     var gravaMsg = function(text, owner, sessionid, callback){
         db.chatsession.findOne({"identifier": sessionid}, function(err, session){

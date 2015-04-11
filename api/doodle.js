@@ -21,16 +21,19 @@ io.on('connection',function(socket){
         console.info('recebeu sendMessagem:' + mensagem.msg);
 		socket.emit('newMessage',mensagem);
         db.gravaMsg(mensagem.room, mensagem.msg, mensagem.user, function(){
-            console.log("inseriu msg no banco!")
+            console.log("inseriu msg no banco!");
         })
 		if(mensagem.msg.indexOf('#') != -1){
 			socket.emit('newCitation',helper.formatCitation(mensagem,"#"));
+            db.gravaCitation(mensagem.user, mensagem.room, "#", mensagem.msg);
 		}
 		if(mensagem.msg.indexOf("@") != -1){
 			socket.emit('newCitation',helper.formatCitation(mensagem,"@"));
+            db.gravaCitation(mensagem.user, mensagem.room, "@", mensagem.msg);
 		}
 		if(mensagem.msg.indexOf('$') != -1){
 			socket.emit('newCitation',helper.formatCitation(mensagem,"$"));
+            db.gravaCitation(mensagem.user, mensagem.room, "$", mensagem.msg);
 		}
 	});
     socket.on('identuser', function(mensagem){
