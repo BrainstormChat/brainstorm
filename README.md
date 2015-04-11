@@ -1,12 +1,22 @@
 Brainstorm Chat
 ===============
 
-Time:
+Aplicativo de chat que ajuda ao grupo que o utiliza a criar listas de citações
+a utilizar as tagas já definidas ou as que forem customizadas pelo usuário.
+Principalmente utilizado para fazer reuniões de brainstorm.
+
+Aplicativo criado no evento #HackInPoa, organizado pela Globo.com.
+
+Time de desenvolvimento:
+------------------------
 
 * Guilherme Mar
 * Guilherme Fritsch
 * Otávio Aquino
 * Sérgio Berlotto
+
+Informações sobre a aplicação
+-----------------------------
 
 Enviar mensagem:
 
@@ -31,6 +41,8 @@ Recebendo uma citação:
 
  io.on('newCitation', obj); //obj é um objeto com os mesmos atributos utilizados no sendMessage adicionado do atributo 'type'
 
-Acesso à aplicação:
+Url do chat:
+------------
 
-http://brainstormchat.app.hackinpoa.tsuru.io
+ http://brainstormchat.app.hackinpoa.tsuru.io/
+

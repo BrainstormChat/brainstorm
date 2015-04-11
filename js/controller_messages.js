@@ -22,7 +22,7 @@ window.socket.on('newMessage', function(data){
     var time = new Date(data.time);
     received['time'] = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
 
-    received['user_initials'] = data.user.substring(0,3);;
+    received['user_initials'] = data.user.substring(0,3).toUpperCase();
 
     imputMessageInChat(received);
 });
