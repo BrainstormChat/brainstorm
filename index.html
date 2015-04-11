@@ -31,8 +31,6 @@
         <script src="js/socket.io.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/starting.js"></script>
-        <script src="js/controller_messages.js"></script>
-        <script src="js/controller_input_message.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -64,8 +62,10 @@
                 <div class="col-sm-9 col-md-9 sidebar">
                     <div class="panel panel-primary">
                         <div class="panel-body">
-                            <ul class="chat" ng-controller="messages">
-                                <li class="left clearfix" ng-repeat="c in chat track by $index">
+                            <ul id="chat-wall" class="chat">
+
+                                <!--
+                                <li class="left clearfix" ng-repeat="c in chat track by c.counter">
                                     <span class="chat-img pull-left">
                                         <img src="http://placehold.it/50/55C1E7/fff&amp;text={{c.user_initials}}" alt="User Avatar" class="img-circle">
                                     </span>
@@ -75,17 +75,18 @@
                                             <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>{{c.time}}</small>
                                         </div>
                                         <p>
-                                          {{c.message}}
+                                          {{c.message}}{{c.counter}}
                                         </p>
                                     </div>
                                 </li>
+                              -->
                             </ul>
                         </div>
                         <div class="panel-footer" >
-                            <div class="input-group" ng-controller="input_message">
-                                <input id="btn-input" type="text" ng-model="message" class="form-control input-sm"  placeholder="Type your message here...">
+                            <div class="input-group">
+                                <input id="input-message" type="text" class="form-control input-sm"  placeholder="Type your message here...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="send()">Send</button>
+                                    <button class="btn btn-warning btn-sm" id="btn-send">Send</button>
                                 </span>
                             </div>
                         </div>
@@ -153,5 +154,7 @@
         </div>
       </div>
     </div>
+    <script src="js/controller_messages.js"></script>
+    <script src="js/controller_input_message.js"></script>
     </body>
 </html>
