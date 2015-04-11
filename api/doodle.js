@@ -19,13 +19,13 @@ io.on('connection',function(socket){
 	socket.on('sendMessage',function(mensagem){
 		console.info('recebeu sendMessage');
 		socket.emit('newMessage',mensagem);
-		if(mensagem.msg.indexOf('#')){
+		if(mensagem.msg.indexOf('#') != -1){
 			socket.emit('newCitation',helper.formatCitation(mensagem,"#"));
 		}
-		if(mensagem.msg.indexOf("@")){
+		if(mensagem.msg.indexOf("@") != -1){
 			socket.emit('newCitation',helper.formatCitation(mensagem,"@"));
 		}
-		if(mensagem.msg.indexOf('$')){
+		if(mensagem.msg.indexOf('$') != -1){
 			socket.emit('newCitation',helper.formatCitation(mensagem,"$"));
 		}
 	});
