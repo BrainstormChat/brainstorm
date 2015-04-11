@@ -4,9 +4,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 var port = process.env.PORT || 8888;
-var dbr = require("./chatdatabase")
-
-var db = new dbr()
+var db = require("./chatdatabase");
 
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
@@ -23,9 +21,11 @@ io.on('connection',function(socket){
 	socket.on('sendMessage',function(mensagem){
 	  console.info('recebeu sendMessagem:' + mensagem.msg);
 		io.emit('newMessage',mensagem);
-	  db.gravaMsg(mensagem.room, mensagem.msg, mensagem.user, function(){
-	      console.log("inseriu msg no banco!")
-	  });
+        try{
+            db.gravaMsg(mensagem.room, mensagem.msg, mensagem.user, function(){
+              console.log("inseriu msg no banco!")
+            });
+        } catch(err){}
 		if(mensagem.msg.indexOf('#') != -1){
 			io.emit('newCitation',helper.formatCitation(mensagem,"#"));
 		}
