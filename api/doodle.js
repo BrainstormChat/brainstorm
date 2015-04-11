@@ -8,8 +8,6 @@ server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
 
-io.on('connection', function (socket) {
-
 var io = require('socket.io')(8888);
 
 io.on('connetion',function(socket){
