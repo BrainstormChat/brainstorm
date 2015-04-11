@@ -1,6 +1,8 @@
 body {
-    background-color: #abc;
+/*    background-color: #abc;*/
+    background: url("../img/bg-1.jpg");
 }
+
 .content {
     position: absolute;
     top: 50px;
@@ -9,6 +11,7 @@ body {
 }
 
 .panel-primary {
+    background: rgba(255,255,255,.6);
     border: none;
 }
 

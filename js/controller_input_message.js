@@ -6,6 +6,7 @@
         if ($scope.message) {
 
             socket.emit('sendMessage',{
+                "room" : "dsv", 
                 "user" : "teste-frontend",
                 "msg" : $scope.message,
                 "time" : new Date().getTime()
