@@ -59,27 +59,26 @@
                 </div>
             </div>
         </nav>
-        <div class="content container-fluid fade">
+        <div class="content container-fluid">
             <div class="row">
                 <div class="col-sm-9 col-md-9 sidebar">
                     <div class="panel panel-primary">
                         <div class="panel-body">
                             <ul class="chat" ng-controller="messages">
-                                <li class="left clearfix" ng-repeat="message in messages">
+                                <li class="left clearfix" ng-repeat="c in chat track by $index">
                                     <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff&amp;text={{message.user_initials}}" alt="User Avatar" class="img-circle">
+                                        <img src="http://placehold.it/50/55C1E7/fff&amp;text={{c.user_initials}}" alt="User Avatar" class="img-circle">
                                     </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <strong class="primary-font">{{message.user}}</strong>
-                                            <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>{{message.time}}</small>
+                                            <strong class="primary-font">{{c.user}}</strong>
+                                            <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>{{c.time}}</small>
                                         </div>
                                         <p>
-                                          {{message.message}}
+                                          {{c.message}}
                                         </p>
                                     </div>
                                 </li>
-
                             </ul>
                         </div>
                         <div class="panel-footer" >
