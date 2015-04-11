@@ -3,8 +3,8 @@ window.app.controller('controllerInputMessage', function controllerInputMessage 
     console.log($scope.message);
 
     $scope.click = function () {
-      console.log($scope.message);
-      alert('da-lhe');
+        console.log($scope.message);
+        alert('da-lhe');
     }
 
 });
