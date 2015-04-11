@@ -1,6 +1,8 @@
 body {
 /*    background-color: #abc;*/
-    background: url("../img/bg-1.jpg");
+/*    background: url("../img/bg-1.jpg");*/
+    background: url("../img/bg-2.jpg");
+    background-size: cover;
 }
 
 .content {
