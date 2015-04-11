@@ -40,8 +40,8 @@ io.on('connection',function(socket){
         db.gravaUsr(mensagem.user, mensagem.email);
         io.emit('newMessage', "{0} Entrou na sala!".format(mensagem.user));
     });
+    socket.on('disconnect', function(){
+        io.emit("Alguém saiu da sala...");
+    });
 });
 
-io.on('disconnection', function(socket){
-    io.emit("Alguém saiu da sala...");
-});
