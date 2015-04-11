@@ -27,7 +27,7 @@ io.on('connection',function(socket){
             db.gravaMsg(mensagem.room, mensagem.msg, mensagem.user, function(){
               console.log("inseriu msg no banco!")
             });
-        } catch {}
+        } catch(err){}
 		if(mensagem.msg.indexOf('#') != -1){
 			io.emit('newCitation',helper.formatCitation(mensagem,"#"));
 		}
