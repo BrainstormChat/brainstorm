@@ -116,9 +116,9 @@
                     </div>
                     <div class="panel-footer">
                         <div class="input-group">
-                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
+                            <input id="btn-input" type="text" value="{{message}}" class="form-control input-sm" placeholder="Type your message here...">
                             <span class="input-group-btn">
-                                <button class="btn btn-warning btn-sm" id="btn-chat">
+                                <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="click($event)>
                                     Send</button>
                             </span>
                         </div>
@@ -133,13 +133,13 @@
               margin: 0;
               padding: 0;
           }
-          
+
           .chat li {
               margin-bottom: 10px;
               padding-bottom: 5px;
               border-bottom: 1px dotted #B3A9A9;
           }
-          
+
           .chat li.left .chat-body {
               margin-left: 60px;
           }
@@ -177,5 +177,9 @@
             background-color: #555;
         }
     </style>
+
+    <script src="js/socket.io.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/controller_imput_message.js"></script>
   </body>
 </html>
