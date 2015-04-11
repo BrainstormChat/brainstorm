@@ -1,8 +1,20 @@
-window.app = angular.module('brainstorm', []);
+
 
     window.app.controller('input_message', function inputMessage ($scope) {
-      $scope.message= "Olá magrão";
       $scope.send = function(){
-        console.log($scope.message)
+
+        if ($scope.message) {
+
+            socket.emit('sendMessage',{
+                "user" : "teste-frontend",
+                "msg" : $scope.message,
+                "time" : new Date().getTime()
+            });
+
+            /*
+            socket.on('newMesssage', function(msg){})
+            */
+        }
+
     }
 });
