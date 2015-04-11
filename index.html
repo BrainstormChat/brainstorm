@@ -19,7 +19,6 @@
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-        <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -31,6 +30,8 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/socket.io.js"></script>
         <script src="js/angular.min.js"></script>
+        <script src="js/starting.js"></script>
+        <script src="js/controller_messages.js"></script>
         <script src="js/controller_input_message.js"></script>
     </head>
     <body>
@@ -58,110 +59,27 @@
                 </div>
             </div>
         </nav>
-        <div class="content container-fluid">
+        <div class="content container-fluid fade">
             <div class="row">
                 <div class="col-sm-9 col-md-9 sidebar">
                     <div class="panel panel-primary">
                         <div class="panel-body">
-                            <ul class="chat">
-                                <li class="left clearfix"><span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
-                                </span>
+                            <ul class="chat" ng-controller="messages">
+                                <li class="left clearfix" ng-repeat="message in messages">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff&amp;text={{message.user_initials}}" alt="User Avatar" class="img-circle">
+                                    </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                                <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                            <strong class="primary-font">{{message.user}}</strong>
+                                            <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>{{message.time}}</small>
                                         </div>
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                            dolor, quis ullamcorper ligula sodales.
+                                          {{message.message}}
                                         </p>
                                     </div>
                                 </li>
-                                <li class="left clearfix"><span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
-                                </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                                <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                            dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix"><span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/aabbcc/fff&amp;text=ME" alt="User Avatar" class="img-circle">
-                                </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                                <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                            dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix"><span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
-                                </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                                <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                            dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix"><span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/aabbcc/fff&amp;text=ME" alt="User Avatar" class="img-circle">
-                                </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                                <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                            dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix"><span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
-                                </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                                <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                            dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix"><span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
-                                </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                                <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                            dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
+
                             </ul>
                         </div>
                         <div class="panel-footer" >
@@ -218,6 +136,23 @@
                 </div>
         </div>
     </div>
-
+<!-- Modal -->
+<div class="modal fade in" id="usernameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
   </body>
 </html>

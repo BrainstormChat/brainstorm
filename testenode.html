@@ -3,8 +3,11 @@
 		<title>Teste</title>
 		<script src="js/socket.io.js"></script>
 		<script>
-			var socket = io('http://brainstorm.app.hackinpoa.tsuru.io');
+			var socket = io('http://localhost:8080');
 			socket.on('newMessage',function(data){
+				console.info(data);
+			})
+			socket.on('newCitation',function(data){
 				console.info(data);
 			})
 		</script>

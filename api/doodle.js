@@ -9,6 +9,12 @@ server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
 
+var helper = {};
+helper.formatCitation = function(_msg,_signal){
+	_msg.type = _signal;
+	return _msg;
+}
+
 io.on('connection',function(socket){
 	console.info('+1 conectado');
 	socket.on('sendMessage',function(mensagem){
@@ -17,6 +23,15 @@ io.on('connection',function(socket){
         db.gravaMsg(mensagem.room, mensagem.msg, mensagem.user, function(){
             console.log("inseriu msg no banco!")
         })
+		if(mensagem.msg.indexOf('#') != -1){
+			socket.emit('newCitation',helper.formatCitation(mensagem,"#"));
+		}
+		if(mensagem.msg.indexOf("@") != -1){
+			socket.emit('newCitation',helper.formatCitation(mensagem,"@"));
+		}
+		if(mensagem.msg.indexOf('$') != -1){
+			socket.emit('newCitation',helper.formatCitation(mensagem,"$"));
+		}
 	});
     socket.on('identuser', function(mensagem){
         db.gravaUsr(userid, useremail);
