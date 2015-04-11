@@ -1,14 +1,12 @@
 (function(){
+    var db = require('./database');
 
-	var io = require('socket.io')(8080);
+	var io = require('socket.io')(8888);
 
-	io.on('helloworld',function(socket){
-		console.log(socket);
-		io.emit('hellotoyou',{
-			msg: 'Ho ho ho',
-			usr: 'DOODLE'
+	io.on('connetion',function(socket){
+		socket.on('sendMessage',function(mensagem){
+			socket.broadcast('newMessage',mensagem);
 		});
 	});
-
 
 })();
