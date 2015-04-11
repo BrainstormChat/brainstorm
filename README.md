@@ -19,3 +19,8 @@ Enviar mensagem:
  
  io.on('newMessage', obj); //obj é um objeto com os mesmos atributos utilizados no sendMessage;
 
+
+ Url do chat:
+
+ http://brainstormchat.app.hackinpoa.tsuru.io/
+
