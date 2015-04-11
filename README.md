@@ -8,4 +8,14 @@ Time:
 * Otávio Aquino
 * Sérgio Berlotto
 
+Enviar mensagem: 
+ io.emit('sendMessage',{
+  'user':'Nome do Usuário', //string
+  'msg': 'Mensagem do Usuário', //string
+  'time': 1428774980501 //timestamp
+ });
+ 
+ Recebendo mensagems:
+ 
+ io.on('newMessage', obj); //obj é um objeto com os mesmos atributos utilizados no sendMessage;
 
