@@ -1,10 +1,8 @@
-window.app.controller('controllerInputMessage', function controllerInputMessage ($scope, $rootScope, loadContent) {
+window.app = angular.module('brainstorm', []);
 
-    console.log($scope.message);
-
-    $scope.click = function () {
-        console.log($scope.message);
-        alert('da-lhe');
+    window.app.controller('input_message', function inputMessage ($scope) {
+      $scope.message= "Olá magrão";
+      $scope.send = function(){
+        console.log($scope.message)
     }
-
 });
