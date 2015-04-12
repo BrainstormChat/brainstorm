@@ -4,10 +4,10 @@
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script src="js/socket.io.js"></script>
 		<script>
-			var socketStart = io('http://localhost:8888');
+		var socketStart = io('http://localhost:8888');
 			socketStart.on('roomSetted',function(){
 				//socket.disconnect();
-				var socket2 = io('http://localhost:8888/testeteste');
+				var socket2 = io('http://localhost:8888/lelele');
 				
 				socket2.on('newMessage',function(data){
 					var p = $('<p>').text(data.msg);
@@ -23,19 +23,17 @@
 							user:'Cliente 2',
 							msg: $('#caixa').val(),
 							time: (new Date()).getTime(),
-							room: 'testeteste'
+							room: 'lelele'
 						});
 						$('#caixa').val('');
 					}
 				});	
 			});
-			socketStart.emit('setRoom',{sala:'/testeteste'});
-		
-			
-		</script>
+			socketStart.emit('setRoom',{sala:'/lelele'});
+		 </script>
 	</head>
 	<body>
-		<h1>Cliente 2</h1>
+		<h1>Cliente 3</h1>
 		<input type="text" id="caixa" cols="30" rows="10" />
 	</body>
 </html>

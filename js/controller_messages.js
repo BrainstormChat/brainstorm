@@ -4,11 +4,11 @@ var imputMessageInChat = function inputMessageInChat (data)
     var li = document.createElement('li');
     li.className = "left clearfix";
 
-    li.innerHTML = '<span class="chat-img pull-left"><img src="http://placehold.it/50/' + data.color + '/fff&amp;text=' + data.user_initials + '" alt="User Avatar" class="img-circle"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + data.user + '</strong><small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>' + data.time + '</small></div><p>' + data.message + '</p></div>';
+    li.innerHTML = '<span class="chat-img pull-left"><img src="http://placehold.it/50/55C1E7/fff&amp;text=' + data.user_initials + '" alt="User Avatar" class="img-circle"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">' + data.user + '</strong><small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>' + data.time + '</small></div><p>' + data.message + '</p></div>';
 
     document.getElementById('chat-wall').appendChild(li);
 
-    $(".panel-body")[0].scrollTop = $(".panel-body")[0].scrollHeight;
+    autoScroll();
 
     window.bs.applyFilter();
 }
@@ -38,29 +38,37 @@ window.socket.on('newMessage', function(data){
 
 });
 
+
+
 var contTimer = 0;
-var timer = 5000;
+var timer = 15000;
 var interval;
 var waitingStatus = [{
     ico: 'sunglasses',
     msg: 'De boa aqui, esperando a galera!'
 }];
 
+var panel = $(".panel-body")[0];
+function autoScroll(){
+    panel.scrollTop = panel.scrollHeight;    
+}
+
 function waiting(status){
-    timer = 10000;
-    interval = window.setInterval(function(){
+    timer = 15000;
+    window.setTimeout(function(){
         var li = document.createElement('li');
 
-        li.innerHTML = '<p><span class="glyphicon glyphicon-'+ waitingStatus[status].ico +'" aria-hidden="true"></span>'+ waitingStatus[status].msg +'</p></div>';
+        li.innerHTML = '<p style="text-align: center;"><span class="glyphicon glyphicon-'+ waitingStatus[status].ico +'" aria-hidden="true"></span>'+ waitingStatus[status].msg +'</p></div>';
 
         document.getElementById('chat-wall').appendChild(li);
 
+        autoScroll();
+        
         timer = timer*2;
         contTimer = contTimer +1;
         if(contTimer>2){
             contTimer = 0;
-            clearInterval(window.interval);
+//            clearInterval(window.interval);
         }
     },timer);
 }
-    $(".panel-body")[0].scrollTop = $(".panel-body")[0].scrollHeight;
