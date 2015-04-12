@@ -51,7 +51,7 @@ io.on('connection',function(socket){
             db.gravaCitation(mensagem.user, mensagem.room, "#", tags, msg);
 		}
 		if(mensagem.msg.indexOf("@") != -1){
-            tags = helper.extractTags(mensagem.msg, "#");
+            tags = helper.extractTags(mensagem.msg, "@");
             msg = mensagem.msg;
             for (var i = 0; i < tags.length; i++) {
                 mensagem.msg = tags[i];
@@ -60,7 +60,7 @@ io.on('connection',function(socket){
             db.gravaCitation(mensagem.user, mensagem.room, "@", tags, msg);
 		}
 		if(mensagem.msg.indexOf('$') != -1){
-            tags = helper.extractTags(mensagem.msg, "#");
+            tags = helper.extractTags(mensagem.msg, "$");
             msg = mensagem.msg;
             for (var i = 0; i < tags.length; i++) {
                 mensagem.msg = tags[i];
