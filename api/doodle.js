@@ -28,12 +28,15 @@ io.on('connection',function(socket){
         } catch(err){}
 		if(mensagem.msg.indexOf('#') != -1){
 			io.emit('newCitation',helper.formatCitation(mensagem,"#"));
+            db.gravaCitation(mensagem.user, mensagem.room, "#", mensagem.msg);
 		}
 		if(mensagem.msg.indexOf("@") != -1){
 			io.emit('newCitation',helper.formatCitation(mensagem,"@"));
+            db.gravaCitation(mensagem.user, mensagem.room, "@", mensagem.msg);
 		}
 		if(mensagem.msg.indexOf('$') != -1){
 			io.emit('newCitation',helper.formatCitation(mensagem,"$"));
+            db.gravaCitation(mensagem.user, mensagem.room, "$", mensagem.msg);
 		}
 	});
     socket.on('identuser', function(mensagem){
@@ -41,7 +44,13 @@ io.on('connection',function(socket){
         io.emit('newMessage', "{0} Entrou na sala!".format(mensagem.user));
     });
     socket.on('disconnect', function(){
-        io.emit("Alguém saiu da sala...");
+        io.emit("newMessage", "Alguém saiu da sala...");
+    });
+    socket.on('joao', function(){
+        db.getAllCitationTags(function(tags_list){
+            io.emit('tiojoao', {'tags':tags_list});
+        });
+
     });
 });
 
