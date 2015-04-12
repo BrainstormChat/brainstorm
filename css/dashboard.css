@@ -76,13 +76,27 @@ body.elegant{
     color: #444;
 }
 
+.elegant .list-group,
+.elegant .list-group-item {
+    background-color: transparent;
+    border: none;
+}
+
+.elegant .nav-tabs>li.active>a,
+.elegant .nav-tabs>li.active>a:focus,
+.elegant .nav-tabs>li.active>a:hover {
+  background: url('../img/bg-elegant.gif') transparent repeat;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
 .panel .slidedown .glyphicon, .chat .glyphicon {
   margin-right: 5px;
 }
 
 .panel-body {
-overflow-y: scroll;
-height: 450px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 450px;
 }
 
 ::-webkit-scrollbar-track {

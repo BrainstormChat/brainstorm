@@ -1,17 +1,21 @@
-$('#btn-send').on('click', function(){
-  window.socket.emit('sendMessage',{
-      "room" : "dsv",
-      "user" : localStorage.getItem('username'),
-//      "color" : localStorage.getItem('color'),
-      "msg" : $('#input-message').val(),
-      "time" : new Date().getTime()
-  });
+var sendButton = $('#btn-send'),
+    inputMessage = $('#input-message');
 
-  $('#input-message').val('');
+sendButton.on('click', function(){
+    if(inputMessage.val() !== ""){
+      window.socket.emit('sendMessage',{
+          "room" : "dsv",
+          "user" : localStorage.getItem('username'),
+          "msg" : inputMessage.val(),
+          "time" : new Date().getTime()
+      });
+
+      inputMessage.val('');
+    }
 });
 
-$('#input-message').keypress(function(e) {
+inputMessage.keypress(function(e) {
    if(e.which == 13) {
-     $('#btn-send').click();
+     sendButton.click();
   }
 });
