@@ -53,7 +53,7 @@ window.bs.createCitationArea = function createCitationArea (id)
 bs.createCitationArea('@');
 bs.createCitationArea('#');
 
-window.bs.insertCitation = function insertCitation (id, name)
+window.bs.insertCitation = function insertCitation (id, name, count)
 {
     var citationId = window.bs.getCitationData(id);
     if (citationId === undefined) {
@@ -70,10 +70,15 @@ window.bs.insertCitation = function insertCitation (id, name)
         }
     }
     if (valueId === undefined) {
+
+      if (count == undefined) {
+        count = 1;
+      }
+
       window.bs.citations[citationId].values.push({
           internalId : 'value' + new Date().getTime(),
           name : name,
-          counter : 1
+          counter : count
       });
       valueId = window.bs.citations[citationId].values.length-1
 

@@ -1,5 +1,6 @@
 window.bs = {};
 window.socket = io('http://brainstorm.app.hackinpoa.tsuru.io');
+//window.socket = io('http://172.16.5.179:8888');
 
 $(document).ready(function(){
 
@@ -39,4 +40,11 @@ window.socket.emit('joao');
 window.socket.once('tiojoao', function(data){
   console.log('joao disse:');
   console.log(data);
+
+  if (data.citations) {
+    for(var i=0; i<data.citations.length; ++i) {
+        window.bs.insertCitation(data.citations[i].type, data.citations[i].tags, data.citations[i].count);
+    }
+  }
+
 });
