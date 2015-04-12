@@ -34,7 +34,7 @@ helper.extractTags = function(citation, type){
 io.on('connection',function(socket){
 	console.info('+1 conectado');
 	socket.on('sendMessage',function(mensagem){
-	  console.info('recebeu sendMessagem:' + mensagem.msg);
+	    console.info('recebeu sendMessagem:' + mensagem.msg);
 		io.emit('newMessage',mensagem);
         try{
             db.gravaMsg(mensagem.room, mensagem.msg, mensagem.user, function(){
@@ -42,12 +42,18 @@ io.on('connection',function(socket){
             });
         } catch(err){}
 		if(mensagem.msg.indexOf('#') != -1){
+            // console.log(">>>>>>>>>>>>"+mensagem.msg);
             tags = helper.extractTags(mensagem.msg, "#");
+            // console.log(">>>>>>>>>>>>"+tags);
             msg = mensagem.msg;
+            // console.log(">>>>>>>>>>>>"+msg);
             for (var i = 0; i < tags.length; i++) {
                 mensagem.msg = tags[i];
+                // console.log(">>>>>>>>>>>>>>>>>"+mensagem.msg);
                 io.emit('newCitation',helper.formatCitation(mensagem,"#"));
             };
+            // console.log(">>>>>>>>>>>>"+mensagem.msg+"="+msg);
+            // console.log(">>>>>>>>>>>>"+tags);
             db.gravaCitation(mensagem.user, mensagem.room, "#", msg, tags );
 		}
 		if(mensagem.msg.indexOf("@") != -1){
