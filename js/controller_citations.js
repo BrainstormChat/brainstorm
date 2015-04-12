@@ -108,9 +108,9 @@ window.bs.insertCitation = function insertCitation (id, name, count)
 
 window.bs.load_all_filter_messages = function (rash){
   window.socket.once('tioze', function(data){
-    console.log(data);
     $("#taxonomyMessages").modal({backdrop:"static"});
     $("#taxonomyNome").html(rash);
+    $('#messages-wall').html('');
 
     for (var i=0; i< data.length; ++i){
       var mensagem = $('<li class="left clearfix" style="display: list-item;"><span class="chat-img pull-left"><img src="http://placehold.it/50/55C1E7/fff&amp;text='+ data[i].user.substring(0,3).toUpperCase()+'" alt="User Avatar" class="img-circle"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+data[i].user+'</strong><small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>10:01:42</small></div><p class="msg">' + data[i].citation + '</p></div></li>');
