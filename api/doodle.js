@@ -99,8 +99,10 @@ io.on('connection',function(socket){
             socket.emit('tiojoao', return_data );
         });
     });
-    socket.on('ze', function(){
-        db.getAllCitationsOfTag(function(return_data){
+    socket.on('ze', function(tagname){
+        console.log("recebeu ZE"+tagname);
+        db.getAllCitationsOfTag(tagname, function(return_data){
+            console.log("Vai mandar TIOZE", return_data);
             socket.emit("tioze", return_data);
         })
     })
