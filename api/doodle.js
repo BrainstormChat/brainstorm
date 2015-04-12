@@ -84,7 +84,7 @@ io.on('connection',function(socket){
     });
     socket.on('joao', function(){
         db.getAllCitationTags(function(tags_list){
-            io.emit('tiojoao', {'tags':tags_list} );
+            io.emit('tiojoao', {'citations':tags_list} );
         });
     });
 });

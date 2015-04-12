@@ -59,7 +59,19 @@ exports.gravaMsg = function(msgobj, callback){
 
 exports.getAllCitationTags = function(callback){
 
-    db.citations.distinct("tags", function(err, retorno){
+    db.citations.group({
+        "key": {
+            "tags":1,
+            "type":1,
+            "count":1
+        },
+        reduce: function(cur, result){
+            result.count += 1
+        },
+        initial: {
+            count: 0
+        } },
+    function(err, retorno){
         callback( retorno );
     });
 
