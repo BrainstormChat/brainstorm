@@ -3,6 +3,9 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
+var SockUser = {};
+var socks = {};
+
 var port = process.env.PORT || 8888;
 var db = require("./chatdatabase");
 
@@ -32,10 +35,12 @@ helper.extractTags = function(citation, type){
 }
 
 io.on('connection',function(socket){
-	console.info('+1 conectado');
+	console.info('+1 conectado '+ socket.id);
+    //socks[socket.id] = socket;
+    SockUser[socket.id] = {};
 	socket.on('sendMessage',function(mensagem){
 	    console.info('recebeu sendMessagem:' + mensagem.msg);
-		io.emit('newMessage',mensagem);
+		socket.emit('newMessage',mensagem);
         try{
             db.gravaMsg(mensagem, function(ret){
               console.log("inseriu msg no banco!");
@@ -50,7 +55,7 @@ io.on('connection',function(socket){
             for (var i = 0; i < tags.length; i++) {
                 mensagem.msg = tags[i];
                 // console.log(">>>>>>>>>>>>>>>>>"+mensagem.msg);
-                io.emit('newCitation',helper.formatCitation(mensagem,"#"));
+                socket.emit('newCitation',helper.formatCitation(mensagem,"#"));
             };
             // console.log(">>>>>>>>>>>>"+mensagem.msg+"="+msg);
             // console.log(">>>>>>>>>>>>"+tags);
@@ -61,7 +66,7 @@ io.on('connection',function(socket){
             msg = mensagem.msg;
             for (var i = 0; i < tags.length; i++) {
                 mensagem.msg = tags[i];
-                io.emit('newCitation',helper.formatCitation(mensagem,"@"));
+                socket.emit('newCitation',helper.formatCitation(mensagem,"@"));
             };
             db.gravaCitation(mensagem.user, mensagem.room, "@", msg, tags);
 		}
@@ -70,21 +75,28 @@ io.on('connection',function(socket){
             msg = mensagem.msg;
             for (var i = 0; i < tags.length; i++) {
                 mensagem.msg = tags[i];
-                io.emit('newCitation',helper.formatCitation(mensagem,"$"));
+                socket.emit('newCitation',helper.formatCitation(mensagem,"$"));
             };
             db.gravaCitation(mensagem.user, mensagem.room, "$", msg, tags);
 		}
 	});
     socket.on('identuser', function(mensagem){
+        console.log("Recebendo o user,"+mensagem.user+", é o socket:"+socket.id);
+        SockUser[socket.id] = {
+            name:mensagem.user,
+            mail:mensagem.email
+        };
         db.gravaUsr(mensagem.user, mensagem.email);
-        io.emit('newMessage', {"msg":mensagem.user + " Entrou na sala!", "time": new Date().getTime(), "user": mensagem.user});
+        socket.emit('newMessage', {"msg":mensagem.user + " Entrou na sala!", "time": new Date().getTime(), "user": mensagem.user});
     });
     socket.on('disconnect', function(){
-        io.emit("newMessage", {"msg":"Alguém sai da sala!", "time": new Date().getTime(), "user": ""});
+        console.log("Disconnected socket: "+ socket.id);
+        socket.emit("newMessage", {"msg":SockUser[socket.id].name+' saiu da sala!', "time": new Date().getTime(), "user": ""});
+        delete SockUser[socket.id];
     });
     socket.on('joao', function(){
         db.getAllCitationTags(function(return_data){
-            io.emit('tiojoao', return_data );
+            socket.emit('tiojoao', return_data );
         });
     });
 });
