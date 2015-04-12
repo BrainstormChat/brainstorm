@@ -89,7 +89,7 @@ window.bs.insertCitation = function insertCitation (id, name, count)
       });
       valueId = window.bs.citations[citationId].values.length-1
 
-      var rash = $('<li class="list-group-item" id="' + window.bs.citations[citationId].values[valueId].internalId + '"><a title="Todas mensagens" id="' + window.bs.citations[citationId].values[valueId].internalId + 'badge" class="badge seall">' + window.bs.citations[citationId].values[valueId].counter + '</a><a class="citation-list-item" href="#">' + name + '</a></li>');
+      var rash = $('<li class="list-group-item" id="' + window.bs.citations[citationId].values[valueId].internalId + '"><a title="Todas mensagens" id="' + window.bs.citations[citationId].values[valueId].internalId + 'badge" class="badge seall">' + ((window.bs.citations[citationId].values[valueId].counter>1)?'ver todos os '+window.bs.citations[citationId].values[valueId].counter + ' itens da lista': window.bs.citations[citationId].values[valueId].counter) +'</a><a class="citation-list-item" href="#">' + name + '</a></li>');
       $('#' + window.bs.citations[citationId].internalId + ' ul').each(function(){
           $(this).append(rash);
       });

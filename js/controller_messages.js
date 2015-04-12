@@ -59,8 +59,9 @@ function autoScroll(){
 }
 
 function waiting(status){
+    clearTimeout(window.interval);
     timer = 35000;
-    window.setTimeout(function(){
+    interval = window.setTimeout(function(){
         var li = document.createElement('li');
 
         li.innerHTML = '<p style="text-align: center;"><span class="glyphicon glyphicon-'+ waitingStatus[status].ico +'" aria-hidden="true"></span>'+ waitingStatus[status].msg +'</p></div>';
@@ -71,9 +72,10 @@ function waiting(status){
 
         timer = timer*2;
         contTimer = contTimer +1;
-        if(contTimer>2){
+        if(contTimer > 2){
             contTimer = 0;
-//            clearInterval(window.interval);
         }
+        waiting(contTimer);
     },timer);
 }
+    
