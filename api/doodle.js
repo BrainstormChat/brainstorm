@@ -19,8 +19,8 @@ helper.formatCitation = function(_msg,_signal){
 helper.extractTags = function(citation, type){
     re = /[\#\$\@][\d\w]+/ig
 
-    var _tags = citation.match(re)
-    var tags = []
+    var _tags = citation.match(re);
+    var tags = [];
 
     for (var i = _tags.length - 1; i >= 0; i--) {
         if(_tags[i].substring(0,1) === type){
@@ -48,7 +48,7 @@ io.on('connection',function(socket){
                 mensagem.msg = tags[i];
                 io.emit('newCitation',helper.formatCitation(mensagem,"#"));
             };
-            db.gravaCitation(mensagem.user, mensagem.room, "#", tags, msg);
+            db.gravaCitation(mensagem.user, mensagem.room, "#", msg, tags );
 		}
 		if(mensagem.msg.indexOf("@") != -1){
             tags = helper.extractTags(mensagem.msg, "@");
@@ -57,7 +57,7 @@ io.on('connection',function(socket){
                 mensagem.msg = tags[i];
                 io.emit('newCitation',helper.formatCitation(mensagem,"@"));
             };
-            db.gravaCitation(mensagem.user, mensagem.room, "@", tags, msg);
+            db.gravaCitation(mensagem.user, mensagem.room, "@", msg, tags);
 		}
 		if(mensagem.msg.indexOf('$') != -1){
             tags = helper.extractTags(mensagem.msg, "$");
@@ -66,7 +66,7 @@ io.on('connection',function(socket){
                 mensagem.msg = tags[i];
                 io.emit('newCitation',helper.formatCitation(mensagem,"$"));
             };
-            db.gravaCitation(mensagem.user, mensagem.room, "$", tags, msg);
+            db.gravaCitation(mensagem.user, mensagem.room, "$", msg, tags);
 		}
 	});
     socket.on('identuser', function(mensagem){
