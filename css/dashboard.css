@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 body {
 /*    background-color: #abc;*/
 /*    background: url("../img/bg-1.jpg");*/
