@@ -55,7 +55,7 @@ var waitingStatus = [{
 
 var panel = $(".panel-body")[0];
 function autoScroll(){
-    panel.scrollTop = panel.scrollHeight;    
+    panel.scrollTop = panel.scrollHeight;
 }
 
 function waiting(status){
@@ -68,7 +68,7 @@ function waiting(status){
         document.getElementById('chat-wall').appendChild(li);
 
         autoScroll();
-        
+
         timer = timer*2;
         contTimer = contTimer +1;
         if(contTimer>2){

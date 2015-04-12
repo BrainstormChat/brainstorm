@@ -6,7 +6,7 @@ sendButton.on('click', function(){
       window.socket.emit('sendMessage',{
           "room" : "dsv",
           "user" : localStorage.getItem('username'),
-          "msg" : inputMessage.val(),
+          "msg" : inputMessage.val() + ' ' + window.bs.active_filters.join(' '),
           "time" : new Date().getTime()
       });
 
