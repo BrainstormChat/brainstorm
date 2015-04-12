@@ -16,12 +16,17 @@ exports.gravaUsr = function(userid, useremail, callback){
 
 exports.gravaCitation = function(owner, sessionid, type, citation, tags, callback){
 
+    tags_objs = []
+    for (var i = 0; i < tags.length; i++) {
+        tags_objs = {"tag": tags[i]}
+    };
+
     db.citations.save({
         "owner": owner,
         "sessionid": sessionid,
         "type":type,
         "citation":citation,
-        "tags": tags
+        "tags": tags_objs
     });
 
 };
@@ -56,7 +61,9 @@ exports.gravaMsg = function(msgobj, callback){
 
 exports.getAllCitationTags = function(callback){
 
+    retorno = db.citations.distinct("tags.tag");
+
     if(callback)
-        callback( ["#tag1","#tag2","#tag3"] );
+        callback( retorno );
 
 };
