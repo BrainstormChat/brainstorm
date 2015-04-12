@@ -1,6 +1,6 @@
 
 databaseuri = "mongodb://db:db@ds041160.mongolab.com:41160/brainstormchat";
-collections = ["citations", "tokens", "users", "chatsession"];
+collections = ["citations", "tokens", "users", "chatsession", "messages"];
 db = require('mongojs').connect(databaseuri, collections);
 
 exports.gravaUsr = function(userid, useremail, callback){
@@ -18,7 +18,7 @@ exports.gravaCitation = function(owner, sessionid, type, citation, tags, callbac
 
     for (var i = 0; i < tags.length; i++) {
         db.citations.save({
-            "owner": owner,
+            "user": owner,
             "sessionid": sessionid,
             "type":type,
             "citation":citation,
@@ -34,27 +34,15 @@ exports.gravaMsg = function(msgobj, callback){
     owner     = msgobj.user;
     sessionid = msgobj.room;
     time      = msgobj.time;
-    db.chatsession.findOne({"identifier": sessionid}, function(err, session){
-        if(err || !session){
-            //Se não tem o chat ainda cria-o
-            db.chatsession.save({"identifier": sessionid,"history":[
-                {
-                    "message": text,
-                    "owner"  : owner,
-                    "time"   : time
-                }
-            ]})
-        }else{
-            db.chatsession.update({"identifier": sessionid},{
-                $addToSet: {
-                    "history": {
-                        "message": text,
-                        "owner"   : owner
-                    }
-                }
-            }, callback);
-        };
-    }); //findOne
+    db.messages.save({
+        "session": sessionid,
+        "message": text,
+        "user"   : owner,
+        "time"   : time
+    }, function(err, o){
+        callback(o);
+    });
+
 };
 
 exports.getAllCitationTags = function(callback){
@@ -72,7 +60,12 @@ exports.getAllCitationTags = function(callback){
             count: 0
         } },
     function(err, retorno){
-        callback( retorno );
+
+        db.messages.find().sort({"_id":-1}).limit(10, function(err, cits){
+            callback( {'citations':retorno, "last_10": cits} );
+        })
+
+
     });
 
 };
