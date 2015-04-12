@@ -37,8 +37,8 @@ io.on('connection',function(socket){
 	    console.info('recebeu sendMessagem:' + mensagem.msg);
 		io.emit('newMessage',mensagem);
         try{
-            db.gravaMsg(mensagem.room, mensagem.msg, mensagem.user, function(){
-              console.log("inseriu msg no banco!")
+            db.gravaMsg(mensagem, function(ret){
+              console.log("inseriu msg no banco!");
             });
         } catch(err){}
 		if(mensagem.msg.indexOf('#') != -1){
@@ -83,8 +83,8 @@ io.on('connection',function(socket){
         io.emit("newMessage", {"msg":"Alguém sai da sala!", "time": new Date().getTime(), "user": ""});
     });
     socket.on('joao', function(){
-        db.getAllCitationTags(function(tags_list){
-            io.emit('tiojoao', {'tags':tags_list} );
+        db.getAllCitationTags(function(return_data){
+            io.emit('tiojoao', return_data );
         });
     });
 });

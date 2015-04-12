@@ -1,5 +1,7 @@
 window.bs = {};
+
 window.socket = io('http://brainstorm.app.hackinpoa.tsuru.io');
+//window.socket = io('http://172.16.5.179:8888');
 
 //função que retorna um número hexadecimal aleatório entre 0 e 255 (FF):
 function Hx() { return parseInt((Math.random() * 255)).toString(16); }
@@ -45,6 +47,24 @@ $(document).ready(function(){
 //getting init data
 window.socket.emit('joao');
 window.socket.once('tiojoao', function(data){
-  console.log('joao disse:');
-  console.log(data);
+
+  if (data.citations) {
+    for(var i=0; i<data.citations.length; ++i) {
+        window.bs.insertCitation(data.citations[i].type, data.citations[i].tags, data.citations[i].count);
+    }
+  }
+
+  if (data.last_10) {
+    data.last_10.reverse();
+    for(var i=0; i<data.last_10.length; ++i) {
+      if (data.last_10[i].user) {
+        imputMessagePrepare({
+          msg : data.last_10[i].message,
+          user : data.last_10[i].user,
+          time: data.last_10[i].time
+        });
+      }
+    }
+  }
+
 });

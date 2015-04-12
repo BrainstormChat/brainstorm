@@ -9,27 +9,33 @@ var imputMessageInChat = function inputMessageInChat (data)
     document.getElementById('chat-wall').appendChild(li);
 
     $(".panel-body")[0].scrollTop = $(".panel-body")[0].scrollHeight;
+
+    window.bs.applyFilter();
 }
 
+var imputMessagePrepare = function imputMessagePrepare (data){
+  data.msg = data.msg.replace(/</ig, '&lt;');
+  data.msg = data.msg.replace(/>/ig, '&gt;');
+  data.user = data.user.replace(/</ig, '&lt;');
+  data.user = data.user.replace(/>/ig, '&gt;');
+
+  var received = {};
+
+  received['user'] = data.user;
+  received['message'] = data.msg;
+
+  var time = new Date(data.time);
+  received['time'] = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+
+  received['user_initials'] = data.user.substring(0,3).toUpperCase();
+
+  imputMessageInChat(received);
+}
 
 window.socket.on('newMessage', function(data){
-    data.msg = data.msg.replace(/</ig, '&lt;');
-    data.msg = data.msg.replace(/>/ig, '&gt;');
-    data.user = data.user.replace(/</ig, '&lt;');
-    data.user = data.user.replace(/>/ig, '&gt;');
-
-    var received = {};
-
-    received['user'] = data.user;
-    received['message'] = data.msg;
-
-    var time = new Date(data.time);
-    received['time'] = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
-
-    received['user_initials'] = data.user.substring(0,3).toUpperCase();
-
-    imputMessageInChat(received);
+    imputMessagePrepare(data);
     waiting(0);
+
 });
 
 var contTimer = 0;
