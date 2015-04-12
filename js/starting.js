@@ -1,6 +1,14 @@
 window.bs = {};
 window.socket = io('http://brainstorm.app.hackinpoa.tsuru.io');
 
+//função que retorna um número hexadecimal aleatório entre 0 e 255 (FF):
+function Hx() { return parseInt((Math.random() * 255)).toString(16); }
+
+//Função para retornar o código completo da cor, com 3 números aleatórios:
+function CorAleat() { return "#" + Hx() + Hx() + Hx(); }
+
+//Testando a função:
+localStorage.setItem("color", CorAleat());
 $(document).ready(function(){
 
     $("#usernameModal").modal({backdrop:"static"});
