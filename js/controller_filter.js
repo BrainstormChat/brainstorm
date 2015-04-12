@@ -3,6 +3,7 @@ window.bs.active_filters = [];
 window.bs.insert_filter = function insert_filter (filter)
 {
     var add = true;
+    
 
     for (var i=0; i<window.bs.active_filters.length; ++i) {
       if (i<window.bs.active_filters[i] == filter.html()) {
@@ -11,7 +12,8 @@ window.bs.insert_filter = function insert_filter (filter)
     }
 
     if (add) {
-      window.bs.active_filters.push(filter.html());
+        window.bs.active_filters.push(filter.html());
+        $(".panel .alert").show();
     }
 
     window.bs.applyFilter();
@@ -27,7 +29,11 @@ window.bs.remove_filter = function remove_filter (filter)
         break;
       }
     }
-
+    
+    if(window.bs.active_filters.length===0) {
+        $(".panel .alert").hide();
+    }
+    
     window.bs.applyFilter();
 }
 

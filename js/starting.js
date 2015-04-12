@@ -26,16 +26,18 @@ $(document).ready(function(){
     })
 
     $("#enter").bind("click", function(){
-        localStorage.setItem("username", $("#username").val());
-        $("#usernameModal").modal('hide');
-        $(".container-fluid.fade").addClass("in");
-        
-        $(".userbar").html('<p class="navbar-text"><img src="http://placehold.it/50/55C1E7/fff&amp;text=' + localStorage.getItem('username').substring(0,3).toUpperCase() + '" alt="User Avatar" class="img-circle">  ' + localStorage.getItem('username')  + '</p>');
+        if($("#username").val() !== ""){
+            localStorage.setItem("username", $("#username").val());
+            $("#usernameModal").modal('hide');
+            $(".container-fluid.fade").addClass("in");
 
-        window.socket.emit('identuser',{
-            'user': $("#username").val(), //string
-            'email': 'email.do.usuario@server.com', //string
-        });
+            $(".userbar").html('<p class="navbar-text"><img src="http://placehold.it/50/55C1E7/fff&amp;text=' + localStorage.getItem('username').substring(0,3).toUpperCase() + '" alt="User Avatar" class="img-circle">  ' + localStorage.getItem('username')  + '</p>');
+
+            window.socket.emit('identuser',{
+                'user': $("#username").val(), //string
+                'email': 'email.do.usuario@server.com', //string
+            });
+        }
     })
 
 
