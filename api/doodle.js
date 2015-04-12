@@ -40,7 +40,7 @@ io.on('connection',function(socket){
     SockUser[socket.id] = {};
 	socket.on('sendMessage',function(mensagem){
 	    console.info('recebeu sendMessagem:' + mensagem.msg);
-		socket.emit('newMessage',mensagem);
+		socket.broadcast.emit('newMessage',mensagem);
         try{
             db.gravaMsg(mensagem, function(ret){
               console.log("inseriu msg no banco!");
@@ -75,7 +75,7 @@ io.on('connection',function(socket){
             msg = mensagem.msg;
             for (var i = 0; i < tags.length; i++) {
                 mensagem.msg = tags[i];
-                socket.emit('newCitation',helper.formatCitation(mensagem,"$"));
+                socket.broadcast.emit('newCitation',helper.formatCitation(mensagem,"$"));
             };
             db.gravaCitation(mensagem.user, mensagem.room, "$", msg, tags);
 		}
