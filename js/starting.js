@@ -47,6 +47,7 @@ window.socket.once('tiojoao', function(data){
   }
 
   if (data.last_10) {
+    data.last_10.reverse();
     for(var i=0; i<data.last_10.length; ++i) {
       if (data.last_10[i].user) {
         imputMessagePrepare({
