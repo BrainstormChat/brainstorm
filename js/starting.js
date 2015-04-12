@@ -10,7 +10,8 @@ function Hx() { return parseInt((Math.random() * 255)).toString(16); }
 function CorAleat() { return "#" + Hx() + Hx() + Hx(); }
 
 //Testando a função:
-localStorage.setItem("color", CorAleat());
+//localStorage.setItem("color", '');
+//localStorage.setItem("color", CorAleat());
 $(document).ready(function(){
 
     $("#usernameModal").modal({backdrop:"static"});

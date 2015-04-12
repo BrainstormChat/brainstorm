@@ -2,7 +2,7 @@ $('#btn-send').on('click', function(){
   window.socket.emit('sendMessage',{
       "room" : "dsv",
       "user" : localStorage.getItem('username'),
-      "color" : localStorage.getItem('color'),
+//      "color" : localStorage.getItem('color'),
       "msg" : $('#input-message').val(),
       "time" : new Date().getTime()
   });
