@@ -4,28 +4,33 @@
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script src="js/socket.io.js"></script>
 		<script>
-			var socket = io('http://localhost:8888/chat');
-			socket.on('newMessage',function(data){
-				console.info('auiq!!');
-				var p = $('<p>').text(data.msg);
-				p.appendTo('body');
-				$('<br>').appendTo('body');
-			})
-			socket.on('newCitation',function(data){
+		var socketStart = io('http://localhost:8888');
+			socketStart.on('roomSetted',function(){
+				//socket.disconnect();
+				var socket2 = io('http://localhost:8888/testeteste');
 				
+				socket2.on('newMessage',function(data){
+					var p = $('<p>').text(data.msg);
+					p.appendTo('body');
+					$('<br>').appendTo('body');
+				});
+				socket2.on('newCitation',function(data){
+					
+				});
+				$(document).on('keydown','#caixa',function(e){
+					if(e.keyCode == 13){
+						socket2.emit('sendMessage',{
+							user:'Cliente 2',
+							msg: $('#caixa').val(),
+							time: (new Date()).getTime(),
+							room: 'testeteste'
+						});
+						$('#caixa').val('');
+					}
+				});	
 			});
-			$(document).on('keydown','#caixa',function(e){
-				if(e.keyCode == 13){
-					socket.emit('sendMessage',{
-						user:'Cliente 1',
-						msg: $('#caixa').val(),
-						time: (new Date()).getTime(),
-						room: '1234'
-					});
-					$('#caixa').val('');
-				}
-			});
-		</script>
+			socketStart.emit('setRoom',{sala:'/testeteste'});
+		 </script>
 	</head>
 	<body>
 		<h1>Cliente 1</h1>
