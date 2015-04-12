@@ -41,7 +41,7 @@ io.on('connection',function(socket){
 	});
     socket.on('identuser', function(mensagem){
         db.gravaUsr(mensagem.user, mensagem.email);
-        io.emit('newMessage', "{0} Entrou na sala!".format(mensagem.user));
+        io.emit('newMessage', mensagem.user + " Entrou na sala!");
     });
     socket.on('disconnect', function(){
         io.emit("newMessage", "Alguém saiu da sala...");
