@@ -5,13 +5,13 @@ window.bs.insert_filter = function insert_filter (filter)
     var add = true;
 
     for (var i=0; i<window.bs.active_filters.length; ++i) {
-      if (i<window.bs.active_filters[i] == filter) {
+      if (i<window.bs.active_filters[i] == filter.html()) {
         add = false;
       }
     }
 
     if (add) {
-      window.bs.active_filters.push(filter);
+      window.bs.active_filters.push(filter.html());
     }
 
     window.bs.applyFilter();
@@ -20,9 +20,9 @@ window.bs.insert_filter = function insert_filter (filter)
 window.bs.remove_filter = function remove_filter (filter)
 {
     var itemId = undefined;
-
+    filter.find('span').remove();
     for (var i=0; i<window.bs.active_filters.length; ++i) {
-      if (window.bs.active_filters[i] == filter) {
+      if (window.bs.active_filters[i] == filter.html()) {
         window.bs.active_filters.splice(i, 1);
         break;
       }
@@ -33,18 +33,16 @@ window.bs.remove_filter = function remove_filter (filter)
 
 window.bs.toggle_filter = function toggle_fiter (filter)
 {
-    if (window.bs.active_filters.indexOf(filter) > -1) {
+    if (window.bs.active_filters.indexOf(filter.html()) > -1) {
       window.bs.remove_filter(filter);
     } else {
       window.bs.insert_filter(filter);
     }
 }
 
-window.bs.filterMessage = function filterMessage (message)
-{
-  var esconde = true;
-  var msg = message.find('.msg');
-
+window.bs.filterMessage = function filterMessage (message){
+    var esconde = true;
+    var msg = message.find('.msg');
   for (var i=0; i<window.bs.active_filters.length; ++i) {
     var reg = new RegExp(window.bs.active_filters[i]+'(\\s|$)');
 
@@ -77,10 +75,10 @@ window.bs.filterListScreen = function filterListScreen ()
     activeFilter.html('');
 
     for (var i=0; i<window.bs.active_filters.length; ++i) {
-      var li = $('<li><a href="#"><span>' + window.bs.active_filters[i] + '</span>[x]</a></li>');
-      li.find('a').on('click', function(){
-        window.bs.remove_filter($(this).find('span').html());
+      var item = $('<b>' + window.bs.active_filters[i] + '<span>[x]</span></b>');
+      item.on('click', function(){
+        window.bs.remove_filter($(this));
       });
-      activeFilter.append(li);
+      activeFilter.append(item);
     }
 }

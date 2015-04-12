@@ -29,6 +29,8 @@ $(document).ready(function(){
         localStorage.setItem("username", $("#username").val());
         $("#usernameModal").modal('hide');
         $(".container-fluid.fade").addClass("in");
+        
+        $(".userbar").html('<p class="navbar-text"><img src="http://placehold.it/50/55C1E7/fff&amp;text=' + localStorage.getItem('username').substring(0,3).toUpperCase() + '" alt="User Avatar" class="img-circle">  ' + localStorage.getItem('username')  + '</p>');
 
         window.socket.emit('identuser',{
             'user': $("#username").val(), //string

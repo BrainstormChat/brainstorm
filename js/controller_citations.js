@@ -94,7 +94,7 @@ window.bs.insertCitation = function insertCitation (id, name, count)
           $(this).append(rash);
       });
       rash.find("a.citation-list-item").on('click', function(){
-          window.bs.toggle_filter($(this).html());
+          window.bs.toggle_filter($(this));
       });
     } else {
       $('#' + window.bs.citations[citationId].values[valueId].internalId + 'badge').html(window.bs.citations[citationId].values[valueId].counter);
