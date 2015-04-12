@@ -14,17 +14,7 @@ exports.gravaUsr = function(userid, useremail, callback){
     })
 };
 
-exports.gravaCitation = function(owner, sessionid, type, citation, callback){
-    re = /[\#\$\@][\d\w]+/ig
-
-    var _tags = citation.match(re)
-    var tags = []
-
-    for (var i = _tags.length - 1; i >= 0; i--) {
-        if(_tags[i].substring(0,1) === type){
-            tags[tags.length] = _tags[i];
-        }
-    };
+exports.gravaCitation = function(owner, sessionid, type, citation, tags, callback){
 
     db.citations.save({
         "owner": owner,
