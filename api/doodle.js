@@ -41,10 +41,10 @@ io.on('connection',function(socket){
 	});
     socket.on('identuser', function(mensagem){
         db.gravaUsr(mensagem.user, mensagem.email);
-        io.emit('newMessage', mensagem.user + " Entrou na sala!");
+        io.emit('newMessage', {"msg":mensagem.user + " Entrou na sala!", "time": new Date().getTime(), "user": mensagem.user});
     });
     socket.on('disconnect', function(){
-        io.emit("newMessage", "Alguém saiu da sala...");
+        io.emit("newMessage", {"msg":"Alguém sai da sala!", "time": new Date().getTime(), "user": ""});
     });
     socket.on('joao', function(){
         db.getAllCitationTags(function(tags_list){
