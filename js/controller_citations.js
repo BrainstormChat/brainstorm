@@ -88,6 +88,7 @@ window.bs.insertCitation = function insertCitation (id, name)
 }
 
 window.socket.on('newCitation', function (data){
-    //console.log(data);
+  data.msg = data.msg.replace(/</ig, '&lt;');
+  data.msg = data.msg.replace(/>/ig, '&gt;');
     window.bs.insertCitation(data.type, data.msg);
 });

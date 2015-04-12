@@ -33,3 +33,10 @@ $(document).ready(function(){
     });
 
 });
+
+//getting init data
+window.socket.emit('joao');
+window.socket.once('tiojoao', function(data){
+  console.log('joao disse:');
+  console.log(data);
+});
