@@ -70,6 +70,8 @@ window.bs.applyFilter = function applyFilter ()
       $(this).css('display', 'list-item');
       if (window.bs.active_filters.length > 0) {
         window.bs.filterMessage($(this));
+      } else {
+        autoScroll();
       }
   });
   window.bs.filterListScreen();
