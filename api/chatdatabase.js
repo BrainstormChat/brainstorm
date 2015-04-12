@@ -55,5 +55,8 @@ exports.gravaMsg = function(msgobj, callback){
 };
 
 exports.getAllCitationTags = function(callback){
-    db.citations.distinct()
+
+    if(callback)
+        callback( ["#tag1","#tag2","#tag3"] );
+
 };
