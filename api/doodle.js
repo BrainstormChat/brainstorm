@@ -40,7 +40,7 @@ io.on('connection',function(socket){
     SockUser[socket.id] = {};
 	socket.on('sendMessage',function(mensagem){
 	    console.info('recebeu sendMessagem:' + mensagem.msg);
-		socket.broadcast.emit('newMessage',mensagem);
+		io.emit('newMessage',mensagem);
         try{
             db.gravaMsg(mensagem, function(ret){
               console.log("inseriu msg no banco!");
@@ -55,7 +55,7 @@ io.on('connection',function(socket){
             for (var i = 0; i < tags.length; i++) {
                 mensagem.msg = tags[i];
                 // console.log(">>>>>>>>>>>>>>>>>"+mensagem.msg);
-                socket.emit('newCitation',helper.formatCitation(mensagem,"#"));
+                io.emit('newCitation',helper.formatCitation(mensagem,"#"));
             };
             // console.log(">>>>>>>>>>>>"+mensagem.msg+"="+msg);
             // console.log(">>>>>>>>>>>>"+tags);
@@ -66,7 +66,7 @@ io.on('connection',function(socket){
             msg = mensagem.msg;
             for (var i = 0; i < tags.length; i++) {
                 mensagem.msg = tags[i];
-                socket.emit('newCitation',helper.formatCitation(mensagem,"@"));
+                io.emit('newCitation',helper.formatCitation(mensagem,"@"));
             };
             db.gravaCitation(mensagem.user, mensagem.room, "@", msg, tags);
 		}
@@ -75,7 +75,7 @@ io.on('connection',function(socket){
             msg = mensagem.msg;
             for (var i = 0; i < tags.length; i++) {
                 mensagem.msg = tags[i];
-                socket.broadcast.emit('newCitation',helper.formatCitation(mensagem,"$"));
+                io.emit('newCitation',helper.formatCitation(mensagem,"$"));
             };
             db.gravaCitation(mensagem.user, mensagem.room, "$", msg, tags);
 		}
@@ -87,11 +87,11 @@ io.on('connection',function(socket){
             mail:mensagem.email
         };
         db.gravaUsr(mensagem.user, mensagem.email);
-        socket.emit('newMessage', {"msg":mensagem.user + " Entrou na sala!", "time": new Date().getTime(), "user": mensagem.user});
+        io.emit('newMessage', {"msg":mensagem.user + " Entrou na sala!", "time": new Date().getTime(), "user": mensagem.user});
     });
     socket.on('disconnect', function(){
         console.log("Disconnected socket: "+ socket.id);
-        socket.emit("newMessage", {"msg":SockUser[socket.id].name+' saiu da sala!', "time": new Date().getTime(), "user": ""});
+        socket.broadcast.emit("newMessage", {"msg":SockUser[socket.id].name+' saiu da sala!', "time": new Date().getTime(), "user": ""});
         delete SockUser[socket.id];
     });
     socket.on('joao', function(){
