@@ -6,18 +6,35 @@ window.bs.citations = [];
 window.bs.getCitationData = function getCitationData (id) {
     for (var i=0; i < window.bs.citations.length; ++i) {
         if ( window.bs.citations[i].id == id ) {
-            return window.bs.citations[i];
+            return i;
         }
     }
     return undefined;
+}
+
+window.bs.getValueCitationKey = function getNameCitation (name, citation) {
+    var values = citation.values;
+    for (var i=0; i<values.length; ++i) {
+        if (values[i].name == name) {
+          return i;
+        }
+    }
+    citation.values.push({
+        name : name,
+        counter : 0
+    });
+    return citation.values.length-1;
+
 }
 
 window.bs.createCitationArea = function createCitationArea (id)
 {
     var citation = {
       internalId : 'conection' + new Date().getTime(),
-      id : id
+      id : id,
+      values : []
     }
+
     var tab = $('<li role="presentation" class=""><a href="#' + citation.internalId + '" id="tags-tab" role="tab" data-toggle="tab" aria-controls="tags" aria-expanded="true">' + citation.id + '</a></li>');
     var tabContent = $('<div role="tabpanel" class="tab-pane fade in" id="' + citation.internalId + '" aria-labelledby="profile-tab"><ul class="list-group"></ul></div>');
 
@@ -38,18 +55,39 @@ bs.createCitationArea('#');
 
 window.bs.insertCitation = function insertCitation (id, name)
 {
-    var citation = window.bs.getCitationData(id);
-    if (!citation) {
+    var citationId = window.bs.getCitationData(id);
+    if (citationId === undefined) {
         bs.createCitationArea(id);
-        citation = window.bs.getCitationData(id);
+        citationId = window.bs.getCitationData(id);
     }
 
-    var rash = '<li class="list-group-item"><span class="badge"></span><a href="#">' + name + '</a></li>';
-    $('#' + citation.internalId + ' ul').each(function(){
-        $(this).append(rash);
-    });
+    var valueId = undefined;
+    for (var i=0; i<window.bs.citations[citationId].values.length; ++i) {
+        if (window.bs.citations[citationId].values[i].name == name) {
+          window.bs.citations[citationId].values[i].counter++;
+          valueId = i;
+          break;
+        }
+    }
+    if (valueId === undefined) {
+      window.bs.citations[citationId].values.push({
+          internalId : 'value' + new Date().getTime(),
+          name : name,
+          counter : 1
+      });
+      valueId = window.bs.citations[citationId].values.length-1
+
+      var rash = '<li class="list-group-item" id="' + window.bs.citations[citationId].values[valueId].internalId + '"><span id="' + window.bs.citations[citationId].values[valueId].internalId + 'badge" class="badge">' + window.bs.citations[citationId].values[valueId].counter + '</span><a href="#">' + name + '</a></li>';
+      $('#' + window.bs.citations[citationId].internalId + ' ul').each(function(){
+          $(this).append(rash);
+      });
+    } else {
+      $('#' + window.bs.citations[citationId].values[valueId].internalId + 'badge').html(window.bs.citations[citationId].values[valueId].counter);
+    }
+
 }
 
 window.socket.on('newCitation', function (data){
+    //console.log(data);
     window.bs.insertCitation(data.type, data.msg);
 });
