@@ -25,9 +25,15 @@ exports.gravaCitation = function(owner, sessionid, type, citation, tags, callbac
             "tags": tags[i]
         });
     };
-
-
 };
+
+exports.getAllCitationsOfTag = function(tagname, callback){
+    db.citations.find({"tags":tagname}, function(err, citations){
+        if (citations){
+            callback(citations);
+        }
+    })
+}
 
 exports.gravaMsg = function(msgobj, callback){
     text      = msgobj.msg;

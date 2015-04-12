@@ -99,5 +99,10 @@ io.on('connection',function(socket){
             socket.emit('tiojoao', return_data );
         });
     });
+    socket.on('ze', function(){
+        db.getAllCitationsOfTag(function(return_data){
+            socket.emit("tioze", return_data);
+        })
+    })
 });
 
