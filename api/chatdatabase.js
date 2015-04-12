@@ -3,25 +3,27 @@ databaseuri = "mongodb://db:db@ds041160.mongolab.com:41160/brainstormchat";
 collections = ["citations", "tokens", "users", "chatsession"];
 db = require('mongojs').connect(databaseuri, collections);
 
-
 exports.gravaUsr = function(userid, useremail, callback){
     db.users.findOne({'userid':userid}, function(err, user){
         if(err || !user){
-            db.user.save({"userid": userid, "email": useremail});
+            db.users.save({"userid": userid, "email": useremail});
         }else{
-            if(user.email != email)
-                db.update({"userid":userid},{"email":useremail});
+            if(user.email != useremail)
+                db.users.update({"userid":userid},{"email":useremail});
         }
     })
 };
 
-exports.gravaCitation = function(owner, sessionid, type, citation, callback){
+exports.gravaCitation = function(owner, sessionid, type, citation, tags, callback){
+
     db.citations.save({
         "owner": owner,
         "sessionid": sessionid,
         "type":type,
-        "citation":citation
+        "citation":citation,
+        "tags": tags
     });
+
 };
 
 exports.gravaMsg = function(msgobj, callback){
@@ -52,4 +54,6 @@ exports.gravaMsg = function(msgobj, callback){
     }); //findOne
 };
 
-
+exports.getAllCitationTags = function(callback){
+    db.citations.distinct()
+};
