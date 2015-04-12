@@ -8,7 +8,7 @@ exports.gravaUsr = function(userid, useremail, callback){
         if(err || !user){
             db.users.save({"userid": userid, "email": useremail});
         }else{
-            if(user.email != email)
+            if(user.email != useremail)
                 db.users.update({"userid":userid},{"email":useremail});
         }
     })
